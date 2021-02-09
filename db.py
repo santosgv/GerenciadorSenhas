@@ -8,15 +8,6 @@ class Banco():
     def  desconecta(self):
         self.desconectar=self.conn.close()
 
-    def login(self):
-        self.conecta()
-        self.cursor.execute('''
-        CREATE TABLE IF NOT EXISTS login(
-        cod integer primary key,
-        login char(20) not null,
-        senha char(20)
-        );
-        ''')
 
     def montar(self):
         self.conecta()
@@ -30,18 +21,6 @@ class Banco():
         self.conn.commit()
         self.desconecta()
 
-    def novologin(self,login,senha):
-        self.conn.execute(f''' insert into login values(%{login}%,%{senha}%)
-        ''')
-        self.conn.commit()
-        self.desconecta()
-
-    def checklogin(self,login,senha):
-        consulta=self.cursor.execute(f'''
-        SELECT * FROM SENHAS where site like ("%{login}% and ("%{senha}%")")
-        ''')
-        for login in consulta.fetchone():
-            print(login)
 
     def inserirsenha(self,site,senha):
         self.conn.execute(f''' insert into SENHA values(%{site}%,%{senha}%)
