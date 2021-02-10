@@ -22,15 +22,18 @@ class Banco():
         self.desconecta()
 
 
-    def inserirsenha(self,site,senha):
-        self.conn.execute(f''' insert into SENHA values(%{site}%,%{senha}%)
-        ''')
-        self.conn.commit()
-        self.desconecta()
+    def inserirsenha(self,cod,site,senha):
+        self.conecta()
+        self.conn.execute(f'''
+        INSERT INTO SENHAS VALUES ({cod},'{site}','{senha}')
+        '''),self.conn.commit(),self.desconecta()
 
     def checksenha(self,site):
+        self.conecta()
         consulta=self.cursor.execute(f'''
         SELECT * FROM SENHAS where site like ("%{site}%")
         ''')
-        for resultado in consulta.fetchone():
+        for resultado in consulta.fetchall():
             print(resultado)
+            self.desconecta()
+
