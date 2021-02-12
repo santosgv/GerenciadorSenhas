@@ -61,9 +61,10 @@ class Funcoes():
         b.conecta()
         site=self.checksenhasite.get()
         senhasdobanco =str(b.checksenha(site))
+        lista=[senhasdobanco]
         self.lbsenhasbanco = Label(self.Main,text='')
         self.lbsenhasbanco.place(relx=0.1, rely=0.30,relwidth=0.60,relheight=0.60)
-        self.lbsenhasbanco['text']=str(senhasdobanco)
+        self.lbsenhasbanco['text']=(senhasdobanco[0::])
 
 
 
