@@ -34,6 +34,5 @@ class Banco():
         SELECT * FROM SENHAS where site like ("%{site}%")
         ''')
         for resultado in consulta.fetchall():
-            print(resultado)
             self.desconecta()
-
+            return resultado
