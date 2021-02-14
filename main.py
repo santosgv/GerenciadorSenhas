@@ -1,8 +1,6 @@
-from db import *
 from tkinter import *
-from tkinter import ttk
 from db import Banco
-
+import random as ran
 root=Tk()
 login=('vitor','senha123@')
 
@@ -17,16 +15,16 @@ class Funcoes():
             self.lbsenha.destroy()
             self.btloga.destroy()
 
-            self.lbaddsenha = Label(self.Main, text='Adicionar novas senhas')
+            self.lbaddsenha = Label(self.Main, bg='white',text='Adicionar novas senhas')
             self.lbaddsenha.place(relx=0.01, rely=0.35)
 
-            self.btadd=Button(self.Main,text='Adicionar',command=self.addsenha)
+            self.btadd=Button(self.Main,text='Adicionar',bg='white',command=self.addsenha)
             self.btadd.place(relx=0.45, rely=0.35)
 
-            self.lbverificar = Label(self.Main, text='Verificar senhas salvas')
+            self.lbverificar = Label(self.Main, bg='white',text='Verificar senhas salvas')
             self.lbverificar.place(relx=0.01, rely=0.45)
 
-            self.btshow=Button(self.Main,text='Mostrar senhas',command=self.showsenha)
+            self.btshow=Button(self.Main,bg='white',text='Mostrar senhas',command=self.showsenha)
             self.btshow.place(relx=0.45, rely=0.45)
 
     def addsenha(self):
@@ -35,11 +33,35 @@ class Funcoes():
         self.btadd.destroy()
         self.lbaddsenha.destroy()
 
-        self.lbsite=Label(self.Main,text='Sites')
+
+        self.lbsite=Label(self.Main,bg='white',text='Sites')
         self.lbsite.place(relx=0.1,rely=0.1)
 
-        self.lbsenhas=Label(self.Main,text='Senhas')
+        self.lbsenhas=Label(self.Main,bg='white',text='Senhas')
         self.lbsenhas.place(relx=0.6, rely=0.1)
+
+        self.entsite=Entry(self.Main)
+        self.entsite.place(relx=0.1,rely=0.20)
+
+        self.entsenha = Entry(self.Main)
+        self.entsenha.place(relx=0.6, rely=0.20)
+
+        self.btaddsenha=Button(self.Main,bg='white',text='Adicionar',command=self.addpwd)
+        self.btaddsenha.place(relx=0.40,rely=0.40)
+
+        self.lbmsg=Label(self.Main,text='',bg='white')
+        self.lbmsg.place(relx=0.25,rely=0.55)
+
+    def addpwd(self):
+        b=Banco()
+        b.montar()
+        b.conecta()
+        ran.randint(0,100)
+        site=self.entsite.get()
+        senha=self.entsenha.get()
+        b.inserirsenha(ran.randint(0,1000),site,senha)
+        self.lbmsg['text']=('Adicionado com sucesso')
+        b.desconecta()
 
     def showsenha(self):
         self.btshow.destroy()
@@ -47,13 +69,13 @@ class Funcoes():
         self.btadd.destroy()
         self.lbaddsenha.destroy()
 
-        self.showsenhas=Label(self.Main,text='Mostrando senhas')
+        self.showsenhas=Label(self.Main,bg='white',text='Mostrando senhas')
         self.showsenhas.place(relx=0.1, rely=0.1)
 
         self.checksenhasite=Entry(self.Main)
         self.checksenhasite.place(relx=0.1, rely=0.20)
 
-        self.btexibir=Button(self.Main,text='Exibir',command=self.senhadb)
+        self.btexibir=Button(self.Main,bg='white',text='Exibir',command=self.senhadb)
         self.btexibir.place(relx=0.40, rely=0.20)
 
     def senhadb(self):
@@ -61,10 +83,9 @@ class Funcoes():
         b.conecta()
         site=self.checksenhasite.get()
         senhasdobanco =str(b.checksenha(site))
-        self.lbsenhasbanco = Label(self.Main,text='')
-        self.lbsenhasbanco.place(relx=0.1, rely=0.30,relwidth=0.60,relheight=0.60)
+        self.lbsenhasbanco = Label(self.Main,bg='white',text='')
+        self.lbsenhasbanco.place(relx=0.1, rely=0.30)
         self.lbsenhasbanco['text']=senhasdobanco
-
 
 
 class Aplicacao(Funcoes):
@@ -85,20 +106,20 @@ class Aplicacao(Funcoes):
         self.Main.place(relx=0.01, rely=0.01, relwidth=0.98, relheight=0.98)
 
     def login(self):
-        self.lblogin=Label(self.Main,text='Login')
+        self.lblogin=Label(self.Main,bg='white',text='Login')
         self.lblogin.place(relx=0.25, rely=0.35)
 
         self.entlogin=Entry(self.Main)
         self.entlogin.place(relx=0.40, rely=0.35)
 
 
-        self.lbsenha=Label(self.Main,text='Senha')
+        self.lbsenha=Label(self.Main,bg='white',text='Senha')
         self.lbsenha.place(relx=0.25,rely=0.45)
 
         self.entsenha = Entry(self.Main,show='*')
         self.entsenha.place(relx=0.40, rely=0.45)
 
-        self.btloga=Button(self.Main,text='Logar',command=self.validar)
+        self.btloga=Button(self.Main,bg='white',text='Logar',command=self.validar)
         self.btloga.place(relx=0.50, rely=0.55)
 
 Aplicacao()
